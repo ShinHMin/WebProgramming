@@ -40,10 +40,17 @@ public class BeatBoxSaveOnly {  // implements MetaEventListener
           checkboxList = new ArrayList<JCheckBox>();
           Box buttonBox = new Box(BoxLayout.Y_AXIS);
 
+          JButton UpDate = new JButton("UpDate");
+          UpDate.addActionListener(new MyUpDateListener());
+          buttonBox.add(UpDate);
+          
+          JButton Reset = new JButton("Reset");
+          Reset.addActionListener(new MyResetListener());
+          buttonBox.add(Reset);
+            
           JButton start = new JButton("Start");
           start.addActionListener(new MyStartListener());
           buttonBox.add(start);
-          
           
           JButton stop = new JButton("Stop");
           stop.addActionListener(new MyStopListener());
@@ -167,6 +174,22 @@ public class BeatBoxSaveOnly {  // implements MetaEventListener
             
 //============================================================== inner class listeners           
        
+      public class MyUpDateListener implements ActionListener {
+         public void actionPerformed(ActionEvent a) {
+        	 sequencer.stop();
+             buildTrackAndStart();
+          }
+       }
+     
+     public class MyResetListener implements ActionListener {
+         public void actionPerformed(ActionEvent a) {
+        	 for (int i = 0; i < 256; i++) {
+                 checkboxList.get(i).setSelected(false);
+                 sequencer.stop();
+           } 
+          }
+       }
+      
       public class MyStartListener implements ActionListener {
         public void actionPerformed(ActionEvent a) {
              buildTrackAndStart();
